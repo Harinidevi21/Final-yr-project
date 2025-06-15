@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen-Centric Services Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .intro h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            color: var(--dark);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            background-color: #fff;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            min-width: 200px;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .btn-1 {
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .btn-1:hover {
+            background-color: #e1f0fa;
+        }
+
+        .btn-2 {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .btn-2:hover {
+            background-color: #fdedec;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 3rem 0;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .card-img img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .card-content p {
+            color: #666;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .social-links {
+            margin: 1rem 0;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-users"></i>
+                <span>Citizen welfare portal</span>
+            </div>
+            <p class="tagline">Empowering communities through accessible, transparent, and efficient public services</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="intro">
+            <h2>Every citizen of India must remember that he is an Indian and he has right in this country</h2>
+            <p>Access essential government services with just a few clicks. Our citizen-centric approach ensures you get the support you need quickly and efficiently, without unnecessary bureaucracy.</p>
+            
+            <div class="btn-container">
+                <a href="http://127.0.0.1:5000" class="btn btn-1">
+                    <i class="fas fa-id-card"></i> Scheme checker
+                </a>
+                <a href="http://127.0.0.1:5001" class="btn btn-2">
+                    <i class="fas fa-file-alt"></i> Grievance redressal
+                </a>
+            </div>
+        </section>
+
+        <section class="services">
+            <div class="service-card">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Public Services">
+                </div>
+                <div class="card-content">
+                    <h3><i class="fas fa-hands-helping"></i> Public Assistance</h3>
+                    <p>Access various government assistance programs including housing, healthcare, and education support services for citizens in need.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Document Services">
+                </div>
+                <div class="card-content">
+                    <h3><i class="fas fa-file-contract"></i> Document Processing</h3>
+                    <p>Apply for and track official documents including IDs, licenses, permits, and certificates with our streamlined online system.</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Community Engagement">
+                </div>
+                <div class="card-content">
+                    <h3><i class="fas fa-comments"></i> Community Engagement</h3>
+                    <p>Participate in town halls, provide feedback on services, and connect with local representatives through our engagement platform.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <h3>Citizen-Centric Services</h3>
+            <p>Committed to serving you better every day</p>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            
+            <p>&copy; 2023 Citizen-Centric Services. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

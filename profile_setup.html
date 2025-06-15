@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Profile Setup</h2>
+<form method="POST">
+    <input name="name" placeholder="Full Name" required><br>
+    <input name="aadhar_number" placeholder="Aadhar Number"><br>
+    <input name="income" placeholder="Monthly Income"><br>
+    <input name="religion" placeholder="Religion"><br>
+    <input name="community" placeholder="Community"><br>
+    <input name="occupation" placeholder="Occupation"><br>
+    <input name="education_qualification" placeholder="Education"><br>
+    <input type="number" name="age" placeholder="Age"><br>
+    <select name="gender">
+        <option disabled selected>Gender</option>
+        <option>Male</option><option>Female</option><option>Other</option>
+    </select><br>
+    <button type="submit">Save Profile</button>
+</form>
+{% endblock %}

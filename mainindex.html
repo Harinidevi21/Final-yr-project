@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Petition System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7ff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin-top: 2rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .result-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #dee2e6;
+        }
+        
+        .result-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .result-item strong {
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header-icon {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-icon">
+            <i class="fas fa-pen-fancy"></i>
+        </div>
+        <h1>Community Petition Submission</h1>
+        
+        <form method="POST">
+            <div class="form-group">
+                <textarea name="content" placeholder="Describe your petition in detail... What change would you like to see in your community?" rows="6"></textarea>
+            </div>
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i> Submit Petition
+            </button>
+        </form>
+
+        {% if result %}
+            <h2><i class="fas fa-clipboard-check"></i> Petition Analysis</h2>
+            <div class="result-card">
+                <div class="result-item">
+                    <strong><i class="fas fa-file-alt"></i> Summary</strong>
+                    <p>{{ result.summary }}</p>
+                </div>
+                
+                <div class="result-item">
+                    <strong><i class="fas fa-building"></i> Department</strong>
+                    <p>{{ result.department }}</p>
+                </div>
+                
+                <div class="result-item">
+                    <strong><i class="fas fa-tags"></i> Category</strong>
+                    <p>{{ result.category }}</p>
+                </div>
+                
+                <div class="result-item">
+                    <strong><i class="fas fa-lightbulb"></i> Suggestion</strong>
+                    <p>{{ result.suggestion }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

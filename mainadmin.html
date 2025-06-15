@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petition Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+          :root {
+            --primary: #77f234;
+            --secondary: #6de92b;
+            --accent: #6de92b;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #ff9e00;
+            --info: #7209b7;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7ff;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+        
+        .petition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .petition-table thead {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .petition-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .petition-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+        }
+        
+        .petition-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .petition-table tr:hover {
+            background-color: #e9ecef;
+        }
+        
+        .content-cell {
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .content-cell:hover {
+            white-space: normal;
+            overflow: visible;
+            position: relative;
+            z-index: 10;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .action-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .search-bar {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .search-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+        
+        .page-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #dee2e6;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .page-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .petition-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .action-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <i class="fas fa-list-check"></i> Petition Dashboard
+        </h1>
+        
+        <div class="search-bar">
+            <input type="text" id="search-input" class="search-input" placeholder="Search petitions...">
+            <button class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        
+        <table class="petition-table">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-hashtag"></i> ID</th>
+                    <th><i class="fas fa-align-left"></i> Content</th>
+                    <th><i class="fas fa-file-alt"></i> Summary</th>
+                    <th><i class="fas fa-building"></i> Department</th>
+                    <th><i class="fas fa-tag"></i> Category</th>
+                    <th><i class="fas fa-lightbulb"></i> Suggestion</th>
+                    <th><i class="fas fa-bolt"></i> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for petition in petitions %}
+                    <tr class="petition-row">
+                        <td>#{{ petition.id }}</td>
+                        <td class="content-cell" title="{{ petition.content }}">
+                            {{ petition.content }}
+                        </td>
+                        <td>{{ petition.summary }}</td>
+                        <td>{{ petition.department }}</td>
+                        <td>
+                            <span class="status-badge status-pending">
+                                {{ petition.category }}
+                            </span>
+                        </td>
+                        <td>{{ petition.suggestion }}</td>
+                        <td>
+                            <form class="action-form" action="/update_status/{{ petition.id }}" method="POST">
+                                <button type="submit" name="action" value="Complete" class="btn btn-success">
+                                    <i class="fas fa-check-circle"></i> Approve
+                                </button>
+                                <button type="submit" name="action" value="Reject" class="btn btn-danger">
+                                    <i class="fas fa-times-circle"></i> Reject
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="pagination">
+            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle search functionality
+        document.getElementById('search-input').addEventListener('input', function() {
+            let searchQuery = this.value.toLowerCase();  // Get the search query
+            let petitions = document.querySelectorAll('.petition-row');  // Get all petition rows
+
+            petitions.forEach(function(petition) {
+                let content = petition.querySelector('td:nth-child(2)').textContent.toLowerCase();  
+                let summary = petition.querySelector('td:nth-child(3)').textContent.toLowerCase();  
+                let department = petition.querySelector('td:nth-child(4)').textContent.toLowerCase();  
+                let category = petition.querySelector('td:nth-child(5)').textContent.toLowerCase();  
+
+                // Check if the search query matches any of the columns' text
+                if (content.includes(searchQuery) || summary.includes(searchQuery) || department.includes(searchQuery) || category.includes(searchQuery)) {
+                    petition.style.display = '';  
+                } else {
+                    petition.style.display = 'none';  
+                }
+            });
+        });
+    </script>
+</body>
+</html>

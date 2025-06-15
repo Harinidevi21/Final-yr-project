@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Verify Identity</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <input type="text" name="name" class="form-control" placeholder="Name" required>
+        </div>
+        <div class="mb-3">
+            <input type="text" name="aadhar_no" class="form-control" placeholder="Aadhar Number" required>
+        </div>
+        <div class="mb-3">
+            <input type="text" name="dob" class="form-control" placeholder="DOB (DD-MM-YYYY)" required>
+        </div>
+        <div class="mb-3">
+            <input type="text" name="location" class="form-control" placeholder="Location" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Verify & Submit</button>
+    </form>
+{% endblock %}

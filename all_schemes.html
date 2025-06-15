@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+  h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin: 30px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px 40px 20px;
+  }
+
+  .scheme-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 320px;
+    padding: 20px 25px;
+    font-family: 'Segoe UI', sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .scheme-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+
+  .scheme-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #00796b;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .scheme-name::before {
+    content: "\f0f3"; /* FontAwesome bell icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #00796b;
+    margin-right: 8px;
+  }
+
+  .scheme-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 18px;
+    min-height: 60px;
+  }
+
+  .scheme-dates {
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.4;
+  }
+
+  .scheme-dates span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .scheme-dates span::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 6px;
+    color: #00796b;
+  }
+
+  .scheme-dates span:first-child::before {
+    content: "\f133"; /* calendar-alt icon */
+  }
+
+  .scheme-dates span:last-child::before {
+    content: "\f073"; /* calendar-day icon */
+  }
+
+  @media (max-width: 700px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .scheme-card {
+      width: 90%;
+    }
+  }
+</style>
+
+<h2>All Government Schemes</h2>
+<div class="container">
+    {% for scheme in schemes %}
+        <div class="scheme-card">
+            <div class="scheme-name">{{ scheme.name }}</div>
+            <div class="scheme-description">{{ scheme.description }}</div>
+            <div class="scheme-dates">
+                <span>Date Posted: {{ scheme.posted_date }}</span>
+                <span>Last Date: {{ scheme.last_date }}</span>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

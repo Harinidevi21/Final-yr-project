@@ -1,0 +1,318 @@
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&display=swap');
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f3f5;
+    color: #222;
+}
+
+/* Header */
+header
+ {
+    background-color: #003366;
+    color: white;
+    padding: 25px 40px;
+    border-bottom: 5px solid #ff9933;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #ffcc00;
+    color: #003366;
+}
+
+/* Main Layout */
+main {
+    padding: 30px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.content-wrapper {
+    background-color: white;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.06);
+    transition: box-shadow 0.3s;
+}
+
+.content-wrapper:hover {
+    box-shadow: 0 0 16px rgba(0,0,0,0.1);
+}
+
+/* Scheme Cards */
+.scheme-card {
+    border: 1px solid #ccd5db;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 6px solid #003366;
+    background-color: #f9fbfc;
+    border-radius: 6px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.scheme-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.scheme-card h3 {
+    color: #003366;
+    margin-top: 0;
+}
+
+/* Forms */
+form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 10px;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: white;
+    transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+    border-color: #003366;
+    outline: none;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #002855;
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    background-color: #e9ecef;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Eligible Schemes Specific Styles */
+.header {
+    background-color: #002147;
+    color: gold;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    border-bottom: 4px solid gold;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns in a row */
+    grid-gap: 2rem;
+}
+
+/* Scheme Cards */
+.scheme-card {
+    background-color: white;
+    border: 2px solid #002147;
+    border-left: 6px solid gold;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.scheme-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.scheme-name {
+    color: #002147;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.scheme-description {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+.scheme-dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.scheme-dates span {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.no-schemes {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.3rem;
+    color: #666;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        grid-template-columns: 1fr; /* 1 per row on mobile */
+    }
+}
+/* Center header title */
+.header-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background-color: #003366;
+    color: white;
+}
+
+/* Navigation Box Container */
+.nav-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Each nav item styled as box */
+.nav-item {
+    background-color: #004080;
+    border: 2px solid #ffcc00;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.nav-item a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+}
+
+.nav-item:hover {
+    background-color: #ffcc00;
+    transform: scale(1.05);
+}
+
+.nav-item:hover a {
+    color: #003366;
+    text-decoration: underline;
+}
+.header-content h1 {
+    margin-left: 15px;
+    font-size: 1.8em;
+    flex: 1;
+}
+
+.header-content img.emblem {
+    height: 60px;
+    width: auto;
+}
+.top-header {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.top-header h1 {
+    flex: 1;
+    text-align: center;
+    font-size: 1.8em;
+    margin: 0;
+}
+/* Basic Styling for Apply Now Button */
+.apply-now-btn {
+    display: inline-block;
+    background-color: #28a745; /* Green background */
+    color: #fff; /* White text */
+    padding: 10px 20px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    text-align: center; /* Center text inside the button */
+    text-decoration: none; /* Remove underline from the link */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover Effect */
+.apply-now-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Focus Effect */
+.apply-now-btn:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Blue outline for focus */
+}
+
+/* Disabled State */
+.apply-now-btn:disabled {
+    background-color: #6c757d; /* Grey background */
+    cursor: not-allowed; /* Change cursor to indicate it's disabled */
+    transform: none; /* Remove lift effect */
+}

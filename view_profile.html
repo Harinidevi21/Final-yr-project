@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- Font Awesome CDN (Add this in your layout.html <head> if not already present) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="profile-card" style="
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: #f9f9f9;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+">
+    <!-- Left side: User details -->
+    <div style="flex: 2;">
+        <h2 style="color:#003366; border-bottom: 2px solid #ff9933; padding-bottom: 10px;">
+            Your Profile
+        </h2>
+       <ul style="list-style: none; padding: 0; line-height: 2;">
+        <li><i class="fas fa-user"></i> <strong>Name:</strong> {{ user.name }}</li>
+        <li><i class="fas fa-envelope"></i> <strong>Email:</strong> {{ user.email }}</li>
+        <li><i class="fas fa-birthday-cake"></i> <strong>Age:</strong> {{ user.age }}</li>
+        <li><i class="fas fa-venus-mars"></i> <strong>Gender:</strong> {{ user.gender }}</li>
+        <li><i class="fas fa-praying-hands"></i> <strong>Religion:</strong> {{ user.religion }}</li>
+        <li><i class="fas fa-users"></i> <strong>Community:</strong> {{ user.community }}</li>
+        <li><i class="fas fa-briefcase"></i> <strong>Occupation:</strong> {{ user.occupation }}</li>
+        <li><i class="fas fa-graduation-cap"></i> <strong>Education:</strong> {{ user.education_qualification }}</li>
+        <li><i class="fas fa-rupee-sign"></i> <strong>Income:</strong> ₹{{ user.income }}</li>
+    </ul>
+        </ul>
+        <div style="text-align: right; margin-top: 20px;">
+            <a href="{{ url_for('edit_profile') }}">
+                <button style="
+                    background-color: #003366;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                " onmouseover="this.style.backgroundColor='#005599'" onmouseout="this.style.backgroundColor='#003366'">
+                    Edit Profile
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Right side: Contact images -->
+    <div style="flex: 1; text-align: center;">
+        <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Phone" style="width:80px; margin-bottom: 20px;">
+        <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email" style="width:80px; margin-bottom: 20px; transform: rotate(90deg);">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Office Building" style="width:80px; margin-bottom: 20px;">
+        <img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Globe" style="width:80px; margin-bottom: 20px;">
+    </div>
+</div>
+
+{% endblock %}

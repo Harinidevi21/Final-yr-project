@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Petitions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .petition-item {
+            transition: all 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+        .petition-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .urgent-item {
+            border-left-color: #dc3545;
+        }
+        .fast-item {
+            border-left-color: #ffc107;
+        }
+        .normal-item {
+            border-left-color: #198754;
+        }
+        .badge-count {
+            font-size: 0.8rem;
+        }
+        .petition-meta {
+            font-size: 0.85rem;
+        }
+        .empty-state {
+            padding: 2rem;
+            text-align: center;
+            color: #6c757d;
+        }
+        .empty-state i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        .category-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold">Petition Dashboard</h1>
+            <p class="lead text-muted">Browse petitions by their priority category</p>
+        </div>
+        
+        <!-- Urgent Petitions -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-exclamation-triangle category-icon"></i>
+                    <h4 class="mb-0 d-inline-block">Urgent Petitions</h4>
+                </div>
+                <span class="badge bg-light text-danger">{{ urgent_petitions|length }} active</span>
+            </div>
+            <div class="card-body p-0">
+                {% if urgent_petitions %}
+                    <div class="list-group list-group-flush">
+                        {% for petition in urgent_petitions %}
+                            <div class="list-group-item petition-item urgent-item py-3">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="me-3">
+                                        <h5 class="mb-1">{{ petition.file_name }}</h5>
+                                        <div class="petition-meta">
+                                            <span class="text-muted">
+                                                <i class="far fa-clock me-1"></i>
+                                                {{ petition.upload_time.strftime('%b %d, %Y at %H:%M') if petition.upload_time else 'Date not available' }}
+                                            </span>
+                                            <span class="ms-2">
+                                                <i class="fas fa-redo me-1"></i>
+                                                <span class="badge bg-secondary badge-count">{{ petition.repeat_count }} repeats</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <a href="{{ url_for('static', filename='uploads/' + petition.file_name) }}" 
+                                           class="btn btn-sm btn-outline-danger me-2" 
+                                           target="_blank">
+                                           <i class="fas fa-eye me-1"></i> View
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <h5>No Urgent Petitions</h5>
+                        <p class="mb-0">There are currently no urgent petitions to display</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Fast Petitions -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-bolt category-icon"></i>
+                    <h4 class="mb-0 d-inline-block">Fast Petitions</h4>
+                </div>
+                <span class="badge bg-light text-warning">{{ fast_petitions|length }} active</span>
+            </div>
+            <div class="card-body p-0">
+                {% if fast_petitions %}
+                    <div class="list-group list-group-flush">
+                        {% for petition in fast_petitions %}
+                            <div class="list-group-item petition-item fast-item py-3">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="me-3">
+                                        <h5 class="mb-1">{{ petition.file_name }}</h5>
+                                        <div class="petition-meta">
+                                            <span class="text-muted">
+                                                <i class="far fa-clock me-1"></i>
+                                                {{ petition.upload_time.strftime('%b %d, %Y at %H:%M') if petition.upload_time else 'Date not available' }}
+                                            </span>
+                                            <span class="ms-2">
+                                                <i class="fas fa-redo me-1"></i>
+                                                <span class="badge bg-secondary badge-count">{{ petition.repeat_count }} repeats</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <a href="{{ url_for('static', filename='uploads/' + petition.file_name) }}" 
+                                           class="btn btn-sm btn-outline-warning me-2" 
+                                           target="_blank">
+                                           <i class="fas fa-eye me-1"></i> View
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <h5>No Fast Petitions</h5>
+                        <p class="mb-0">There are currently no fast petitions to display</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Normal Petitions -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-check-circle category-icon"></i>
+                    <h4 class="mb-0 d-inline-block">Normal Petitions</h4>
+                </div>
+                <span class="badge bg-light text-success">{{ normal_petitions|length }} active</span>
+            </div>
+            <div class="card-body p-0">
+                {% if normal_petitions %}
+                    <div class="list-group list-group-flush">
+                        {% for petition in normal_petitions %}
+                            <div class="list-group-item petition-item normal-item py-3">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="me-3">
+                                        <h5 class="mb-1">{{ petition.file_name }}</h5>
+                                        <div class="petition-meta">
+                                            <span class="text-muted">
+                                                <i class="far fa-clock me-1"></i>
+                                                {{ petition.upload_time.strftime('%b %d, %Y at %H:%M') if petition.upload_time else 'Date not available' }}
+                                            </span>
+                                            <span class="ms-2">
+                                                <i class="fas fa-redo me-1"></i>
+                                                <span class="badge bg-secondary badge-count">{{ petition.repeat_count }} repeats</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <a href="{{ url_for('static', filename='uploads/' + petition.file_name) }}" 
+                                           class="btn btn-sm btn-outline-success me-2" 
+                                           target="_blank">
+                                           <i class="fas fa-eye me-1"></i> View
+                                        </a>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <h5>No Normal Petitions</h5>
+                        <p class="mb-0">There are currently no normal petitions to display</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add any interactive functionality here
+        document.querySelectorAll('.petition-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Don't trigger if clicking on a button or link
+                if (!e.target.closest('a, button')) {
+                    const viewBtn = this.querySelector('a[target="_blank"]');
+                    if (viewBtn) {
+                        window.open(viewBtn.href, '_blank');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

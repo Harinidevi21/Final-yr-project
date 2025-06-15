@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Public Petitions</h1>
+        <p class="lead text-muted">Browse and support causes that matter to you</p>
+        
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown">
+                    <i class="fas fa-filter me-2"></i>Filter by Category
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="?category=all">All Categories</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="?category=environment">Environment</a></li>
+                    <li><a class="dropdown-item" href="?category=human_rights">Human Rights</a></li>
+                    <li><a class="dropdown-item" href="?category=education">Education</a></li>
+                    <li><a class="dropdown-item" href="?category=healthcare">Healthcare</a></li>
+                </ul>
+            </div>
+            
+            <div class="input-group" style="width: 300px;">
+                <input type="text" class="form-control" placeholder="Search petitions..." id="searchInput">
+                <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {% if petitions %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for petition in petitions %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge rounded-pill" style="background-color:blue">
+                            {{ petition.category }}
+                        </span>
+                        <small class="text-muted">
+                            <i class="far fa-calendar-alt me-1"></i>
+                            
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ petition.file_name }}</h5>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="progress w-100 me-3" style="height: 8px;">
+                            <div class="progress-bar bg-success" 
+                                 role="progressbar" 
+                                 style="width: {{ (petition.signatures / 1000 * 100) if petition.signatures else 0 }}%" 
+                                 aria-valuenow="{{ petition.signatures }}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="1000">
+                            </div>
+                        </div>
+                        <small class="text-nowrap">
+                            <strong>{{ petition.signatures if petition.signatures else 0 }}</strong>/1000
+                        </small>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-3">
+                        <a href="{{ url_for('static', filename='uploads/' + petition.file_name) }}" 
+                           target="_blank" 
+                           class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-file-pdf me-1"></i> View Petition
+                        </a>
+                        
+                        <form action="{{ url_for('like_petition', petition_id=petition.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-danger like-btn">
+                                <i class="fas fa-heart me-1"></i>
+                                <p><strong>Likes:</strong> {{ petition.likes.count() }}</p>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    
+                </div>
+                
+                <div class="card-footer bg-white">
+                    <div class="comments-section">
+                        <h6 class="mb-3">
+                            <i class="far fa-comments me-2"></i>Comments
+                            <span class="badge bg-secondary rounded-pill ms-1">{{ petition.comments|length }}</span>
+                        </h6>
+                        
+                        <div class="comments-container mb-3" style="max-height: 200px; overflow-y: auto;">
+                            {% for comment in petition.comments %}
+                            <div class="card mb-2 shadow-none border">
+                                <div class="card-body p-2">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-user-circle fa-lg text-muted"></i>
+                                        </div>
+                                        <div class="flex-grow-1 ms-2">
+                                            <div class="d-flex justify-content-between">
+                                                <strong class="me-2">{{ comment.user.username }}</strong>
+                                                <small class="text-muted">{{ comment.timestamp.strftime('%b %d') }}</small>
+                                            </div>
+                                            <p class="mb-0 small">{{ comment.content }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="text-center text-muted py-3">
+                                No comments yet
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <form action="{{ url_for('comment_petition', petition_id=petition.id) }}" method="POST">
+                            <div class="input-group">
+                                <input type="text" name="comment" class="form-control form-control-sm" placeholder="Add a comment..." required>
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <nav aria-label="Petitions pagination" class="mt-5">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+    {% else %}
+    <div class="text-center py-5">
+        <div class="empty-state p-5">
+            <i class="far fa-file-alt fa-4x text-muted mb-4"></i>
+            <h3 class="h4">No petitions found</h3>
+            <p class="text-muted">There are currently no public petitions available.</p>
+            {% if current_user.is_authenticated %}
+            <a href="/upload_petition" class="btn btn-primary mt-3">
+                <i class="fas fa-plus me-2"></i> Start a Petition
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Like button animation
+    document.querySelectorAll('.like-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const likeCount = this.querySelector('.like-count');
+            const currentCount = parseInt(likeCount.textContent);
+            
+            // Visual feedback
+            this.classList.add('btn-danger', 'text-white');
+            this.classList.remove('btn-outline-danger');
+            
+            // Update count immediately for better UX
+            likeCount.textContent = currentCount + 1;
+            
+            // The actual count will be updated when the form submits
+        });
+    });
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        const searchTerm = this.value.toLowerCase();
+        const cards = document.querySelectorAll('.col');
+        
+        cards.forEach(card => {
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            if (title.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+
+    // Smooth scrolling for comments section
+    document.querySelectorAll('.comments-container').forEach(container => {
+        container.scrollTop = container.scrollHeight;
+    });
+</script>
+
+<style>
+    .category-colors {
+        environment: #2ecc71;
+        human_rights: #e74c3c;
+        education: #3498db;
+        healthcare: #9b59b6;
+    }
+    
+    .card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .progress {
+        border-radius: 10px;
+    }
+    
+    .progress-bar {
+        border-radius: 10px;
+    }
+    
+    .comments-container::-webkit-scrollbar {
+        width: 5px;
+    }
+    
+    .comments-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .comments-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+    
+    .empty-state {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<style>
+  h1 {
+    text-align: center;
+    
+    margin: 40px 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 0 20px 40px;
+  }
+
+  .scheme-card {
+    background: #e0f2f1;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    width: 320px;
+    padding: 22px 28px;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .scheme-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+
+  .scheme-name {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #00796b;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+  }
+
+  .scheme-name::before {
+    content: "\f0f3"; /* FontAwesome bell icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #00796b;
+    margin-right: 10px;
+  }
+
+  .scheme-description {
+    font-size: 1rem;
+    color: #004d40;
+    margin-bottom: 18px;
+    min-height: 60px;
+  }
+
+  .badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #388e3c;
+    color: white;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 8px rgba(56, 142, 60, 0.5);
+  }
+
+  .scheme-dates {
+    font-size: 0.9rem;
+    color: #00695c;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+
+  .scheme-dates span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .scheme-dates span::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 8px;
+    color: #00796b;
+  }
+
+  .scheme-dates span:first-child::before {
+    content: "\f133"; /* calendar-alt icon */
+  }
+
+  .scheme-dates span:last-child::before {
+    content: "\f073"; /* calendar-day icon */
+  }
+
+  .apply-now-btn {
+    display: inline-block;
+    background-color: #00796b;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .apply-now-btn:hover {
+    background-color: #004d40;
+  }
+
+  .no-apply-link {
+    font-size: 0.9rem;
+    color: #a1887f;
+    font-style: italic;
+  }
+
+  .no-schemes {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #757575;
+    margin-top: 50px;
+  }
+
+  @media (max-width: 700px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .scheme-card {
+      width: 90%;
+      margin-bottom: 20px;
+    }
+  }
+</style>
+
+<h1>You are eligible for</h1>
+<div class="container">
+    {% if schemes %}
+        {% for scheme in schemes %}
+            <div class="scheme-card">
+                <div class="scheme-name">{{ scheme.name }}</div>
+                <div class="scheme-description">{{ scheme.description }}</div>
+               
+                <div class="scheme-dates">
+                    <span>Date Posted: {{ scheme.posted_date }}</span>
+                    <span>Last Date: {{ scheme.last_date }}</span>
+                </div>
+                {% if scheme.link %}
+                    <a href="{{ scheme.link }}" class="apply-now-btn" target="_blank" rel="noopener noreferrer">
+                        Apply Now
+                    </a>
+                {% else %}
+                    <div class="no-apply-link">No application link available.</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-schemes">No schemes match your profile at the moment.</div>
+    {% endif %}
+</div>
+{% endblock %}
